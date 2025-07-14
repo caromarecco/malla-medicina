@@ -8,7 +8,158 @@
 </head>
 <body>
   <h1>Malla Interactiva Medicina</h1>
-  <div id="malla"></div>
+  <div id="malla" class="grid"></div>
   <script src="script.js"></script>
 </body>
 </html>
+```
+
+├── estilos.css
+```css
+body {
+  background: #fdfcff;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0; padding: 2rem;
+  color: #333;
+}
+h1 {
+  text-align:center;
+  color:#b91c84;
+  margin-bottom:2rem;
+}
+.grid {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 220px;
+}
+.semestre {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-left: 3px solid #ccc;
+}
+.semestre h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #c2185b;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
+}
+.materia {
+  padding:1rem;
+  border-radius:8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor:pointer;
+  text-align:center;
+  transition: transform .2s;
+  background: #f9e0f2;
+  border: 2px solid #e7a6da;
+}
+.materia:hover { transform: translateY(-3px); }
+.materia.bloqueada {
+  opacity:0.5;
+  cursor:not-allowed;
+}
+.materia.aprobada {
+  background:#d1f7d5 !important;
+  border-color:#34a853 !important;
+  text-decoration: line-through;
+}
+```
+
+└── script.js
+```javascript
+const materias = [
+  ['MIBCM','Biología Celular y Molecular',1,1,[]],
+  ['MIBES','Bioestadística',1,1,[]],
+  ['MSPHB','Salud y Humanidades',1,1,[]],
+  ['MAT1','Aprendizaje en Territorio 1',1,2,[]],
+  ['MBCM','Biología Celular y Molecular 2',2,3,['MIBCM']],
+  ['MAT2','Aprendizaje en Territorio 2',2,4,['MAT1']],
+  ['MANAT','Anatomía (CBCC2)',3,5,['MSPHB']],
+  ['MHBIO','Histología y Biofísica',3,5,['MBCM']],
+  ['HIST','Histología Neuro/Cardio',4,7,['MBCM']],
+  ['BCC3N','Neurociencias',4,7,['MBCM']],
+  ['BCC4C','Cardio‑Respiratorio',4,7,['MBCM']],
+  ['BCC5','Digestivo‑Endocrino',5,9,['MBCM','MANAT']],
+  ['BCC6','Hematología e Inmunobio',5,9,['MBCM']],
+  ['MC1','Metodología Científica 1',6,11,['MIBES','BCC5']],
+  ['M4PNA','Medicina 1er Nivel Atención',6,11,['BCC5','BCC6']],
+  ['M4BCP','Bases Científicas Patología',6,12,['BCC5','BCC6']],
+  ['M4PED','Pediatría',7,13,['M4PNA','M4BCP']],
+  ['M4GYN','Ginecología y Neonatología',7,13,['M4PNA','M4BCP']],
+  ['MCM','Clínica Médica',8,15,['M4PED','M4GYN']],
+  ['MPMT','Patología Médica y Terapéutica',8,15,['M4BCP']],
+  ['M6CQ','Clínica Quirúrgica',9,17,['MCM','M4BCP','M4PNA']],
+  ['M6PQ','Patología Quirúrgica',9,17,['M4BCP']],
+  ['M6MFC','Salud Mental y Psicología Médica',9,17,['M4PNA']],
+  ['MC2','Metodología Científica 2',9,18,['MC1','M4BCP','M4PNA']],
+  ['INTO','Internado Obligatorio',10,19,['M6CQ','M6PQ','M6MFC','MC2']]
+];
+
+const malla = document.getElementById('malla');
+
+const estructura = {};
+
+materias.forEach(([codigo, nombre, anio, semestre, previas]) => {
+  if (!estructura[anio]) estructura[anio] = {};
+  if (!estructura[anio][semestre]) estructura[anio][semestre] = [];
+  estructura[anio][semestre].push({ codigo, nombre, previas });
+});
+
+function estaDesbloqueada(previas) {
+  return previas.every(codigo => {
+    const el = document.querySelector(`[data-codigo="${codigo}"]`);
+    return el && el.classList.contains('aprobada');
+  });
+}
+
+function actualizar() {
+  document.querySelectorAll('.materia').forEach(el => {
+    if (!el.classList.contains('aprobada')) {
+      const reqs = JSON.parse(el.dataset.previas);
+      if (estaDesbloqueada(reqs)) {
+        el.classList.remove('bloqueada');
+      } else {
+        el.classList.add('bloqueada');
+      }
+    }
+  });
+}
+
+Object.entries(estructura).forEach(([anio, semestres]) => {
+  const col = document.createElement('div');
+  col.className = 'columna';
+
+  Object.entries(semestres).forEach(([sem, lista]) => {
+    const cont = document.createElement('div');
+    cont.className = 'semestre';
+    cont.innerHTML = `<h3>Semestre ${sem}</h3>`;
+    lista.forEach(({ codigo, nombre, previas }) => {
+      const div = document.createElement('div');
+      div.className = 'materia';
+      div.setAttribute('data-codigo', codigo);
+      div.setAttribute('data-previas', JSON.stringify(previas));
+      div.innerHTML = `<strong>${codigo}</strong><br>${nombre}`;
+      if (previas.length > 0) div.classList.add('bloqueada');
+      div.addEventListener('click', () => {
+        if (div.classList.contains('bloqueada')) return;
+        div.classList.toggle('aprobada');
+        actualizar();
+      });
+      cont.appendChild(div);
+    });
+    col.appendChild(cont);
+  });
+
+  malla.appendChild(col);
+});
+```
