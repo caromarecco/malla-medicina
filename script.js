@@ -69,7 +69,7 @@ Object.entries(estructura).forEach(([anio, semestres]) => {
       div.className = 'materia';
       div.setAttribute('data-codigo', codigo);
       div.setAttribute('data-previas', JSON.stringify(previas));
-      div.innerHTML = `<div class="nombre">${nombre}</div><div class="codigo">${codigo}</div>`;
+      div.innerHTML = `<div class=\"nombre\">${nombre}</div><div class=\"codigo\">${codigo}</div>`;
       if (previas.length > 0) div.classList.add('bloqueada');
       div.addEventListener('click', () => {
         if (div.classList.contains('bloqueada')) return;
