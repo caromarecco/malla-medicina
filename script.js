@@ -1,87 +1,93 @@
 const materias = [
-  ['MIBCM','Introducción a la Biología Celular y Molecular',1,1,[]],
-  ['MIBES','Introducción a la Bioestadística',1,1,[]],
-  ['MSPHB','Salud y Humanidades y Bioética',1,1,[]],
-  ['MAT1','Aprendizaje en Territorio 1',1,2,[]],
-  ['MBCM','Biología Celular y Molecular',2,3,['MIBCM']],
-  ['MAT2','Aprendizaje en Territorio 2',2,4,['MAT1']],
-  ['MANAT','Anatomía (CBCC2)',3,5,['MSPHB']],
-  ['MHBIO','Histología y Biofísica (CBCC2)',3,5,['MBCM']],
-  ['HIST','Histología (Neuro y Cardio)',4,7,['MBCM']],
-  ['BCC3N','Neurociencias',4,7,['MBCM']],
-  ['BCC4C','Cardiovascular y Respiratorio',4,7,['MBCM']],
-  ['BCC5','Digestivo Renal Endocrino y Reproductivo (CBCC5)',5,9,['MBCM','MANAT']],
-  ['BCC6','Hematología e Inmunobiología (BCC6)',5,9,['MBCM']],
-  ['MC1','Metodología Científica 1',6,11,['MIBES','BCC5']],
-  ['M4PNA','Medicina en el Primer Nivel de Atención',6,11,['BCC5','BCC6']],
-  ['M4BCP','Bases Científicas de la Patología',6,12,['BCC5','BCC6']],
-  ['M4PED','Pediatría',7,13,['M4PNA','M4BCP']],
-  ['M4GYN','Ginecología y Neonatología',7,13,['M4PNA','M4BCP']],
-  ['MCM','Clínica Médica (5to año)',8,15,['M4PED','M4GYN']],
-  ['MPMT','Patología Médica y Terapéutica (5to año)',8,15,['M4BCP']],
-  ['M6CQ','Clínica Quirúrgica',9,17,['MCM','M4BCP','M4PNA']],
-  ['M6PQ','Patología Quirúrgica',9,17,['M4BCP']],
-  ['M6MFC','MFC – Salud Mental en Comunidad – Psicología Médica',9,17,['M4PNA']],
-  ['MC2','Metodología Científica 2',9,18,['MC1','M4BCP','M4PNA']],
-  ['INTO','Internado Obligatorio',10,19,['M6CQ','M6PQ','M6MFC','MC2']]
-];
-
-const malla = document.getElementById('malla');
-const estructura = {};
-
-materias.forEach(([codigo, nombre, anio, semestre, previas]) => {
-  if (!estructura[anio]) estructura[anio] = {};
-  if (!estructura[anio][semestre]) estructura[anio][semestre] = [];
-  estructura[anio][semestre].push({ codigo, nombre, previas });
-});
-
-function estaDesbloqueada(previas) {
-  return previas.every(codigo => {
-    const el = document.querySelector(`[data-codigo="${codigo}"]`);
-    return el && el.classList.contains('aprobada');
-  });
-}
-
-function actualizar() {
-  document.querySelectorAll('.materia').forEach(el => {
-    if (!el.classList.contains('aprobada')) {
-      const reqs = JSON.parse(el.dataset.previas);
-      if (estaDesbloqueada(reqs)) {
-        el.classList.remove('bloqueada');
-      } else {
-        el.classList.add('bloqueada');
+  {
+    anio: "Primero", semestres: [
+      {
+        numero: "1º semestre", materias: [
+          { id: "bio_intro", nombre: "Introducción a la Biología Celular y Molecular", tipo: "basicas" },
+          { id: "bioest", nombre: "Introducción a la Bioestadística", tipo: "basicas" },
+          { id: "bioetica", nombre: "Salud y Humanidades y Bioética", tipo: "comunidad" },
+          { id: "at1", nombre: "Aprendizaje en Territorio 1", tipo: "comunidad" }
+        ]
+      },
+      {
+        numero: "2º semestre", materias: [
+          { id: "bio", nombre: "Biología Celular y Molecular", previas: ["bio_intro"], tipo: "basicas" },
+          { id: "at2", nombre: "Aprendizaje en Territorio 2", previas: ["at1"], tipo: "comunidad" }
+        ]
       }
-    }
-  });
-}
-
-Object.entries(estructura).forEach(([anio, semestres]) => {
-  const col = document.createElement('div');
-  col.className = 'columna';
-  col.innerHTML = `<h2>Año ${anio}</h2>`;
-
-  Object.entries(semestres).forEach(([sem, lista]) => {
-    const cont = document.createElement('div');
-    cont.className = 'semestre';
-    cont.innerHTML = `<h3>Semestre ${sem}</h3>`;
-
-    lista.forEach(({ codigo, nombre, previas }) => {
-      const div = document.createElement('div');
-      div.className = 'materia';
-      div.setAttribute('data-codigo', codigo);
-      div.setAttribute('data-previas', JSON.stringify(previas));
-      div.innerHTML = `<div class="nombre">${nombre}</div><div class="codigo">${codigo}</div>`;
-      if (previas.length > 0) div.classList.add('bloqueada');
-      div.addEventListener('click', () => {
-        if (div.classList.contains('bloqueada')) return;
-        div.classList.toggle('aprobada');
-        actualizar();
-      });
-      cont.appendChild(div);
-    });
-
-    col.appendChild(cont);
-  });
-
-  malla.appendChild(col);
-});
+    ]
+  },
+  {
+    anio: "Segundo", semestres: [
+      {
+        numero: "3º semestre", materias: [
+          { id: "anatomia", nombre: "Anatomía (CBCC2)", previas: ["bioetica"], tipo: "basicas" },
+          { id: "histobiof", nombre: "Histología y Biofísica (CBCC2)", previas: ["bio"], tipo: "basicas" }
+        ]
+      },
+      {
+        numero: "4º semestre", materias: [
+          { id: "histoneuro", nombre: "Histología (Neuro y Cardio)", previas: ["bio"], tipo: "basicas" },
+          { id: "neuro", nombre: "Neurociencias", previas: ["bio"], tipo: "basicas" },
+          { id: "cardioresp", nombre: "Cardiovascular y Respiratorio", previas: ["bio"], tipo: "basicas" }
+        ]
+      }
+    ]
+  },
+  {
+    anio: "Tercero", semestres: [
+      {
+        numero: "5º semestre", materias: [
+          { id: "cbcc5", nombre: "Digestivo, Renal, Endocrino, Metabólico y Reproductor", previas: ["bio", "anatomia"], tipo: "basicas" }
+        ]
+      },
+      {
+        numero: "6º semestre", materias: [
+          { id: "b6", nombre: "Hematología e Inmunobiología", previas: ["bio"], tipo: "basicas" },
+          { id: "met1", nombre: "Metodología Científica 1", previas: ["bioest", "cbcc5"], tipo: "investigacion" }
+        ]
+      }
+    ]
+  },
+  {
+    anio: "Cuarto", semestres: [
+      {
+        numero: "7º semestre", materias: [
+          { id: "m4pna", nombre: "Medicina en el Primer Nivel de Atención", previas: ["cbcc5", "b6"], tipo: "comunidad" },
+          { id: "m4bcp", nombre: "Bases Científicas de la Patología", previas: ["cbcc5", "b6"], tipo: "clinicas" }
+        ]
+      },
+      {
+        numero: "8º semestre", materias: [
+          { id: "pediatria", nombre: "Pediatría", previas: ["m4pna", "m4bcp"], tipo: "clinicas" },
+          { id: "gineco", nombre: "Ginecología y Neonatología", previas: ["m4pna", "m4bcp"], tipo: "clinicas" }
+        ]
+      }
+    ]
+  },
+  {
+    anio: "Quinto", semestres: [
+      {
+        numero: "9º y 10º semestre", materias: [
+          { id: "clinica", nombre: "Clínica Médica", previas: ["pediatria", "gineco"], tipo: "clinicas" },
+          { id: "patomed", nombre: "Patología Médica y Terapéutica", previas: ["m4bcp"], tipo: "clinicas" }
+        ]
+      }
+    ]
+  },
+  {
+    anio: "Sexto", semestres: [
+      {
+        numero: "11º y 12º semestre", materias: [
+          { id: "clinicaq", nombre: "Clínica Quirúrgica", previas: ["clinica", "m4bcp", "m4pna"], tipo: "clinicas" },
+          { id: "patoquir", nombre: "Patología Quirúrgica", previas: ["m4bcp"], tipo: "clinicas" },
+          { id: "mfc", nombre: "MFC – Salud Mental en Comunidad – Psicología Médica", previas: ["m4pna"], tipo: "clinicas" },
+          { id: "met2", nombre: "Metodología Científica 2", previas: ["met1", "m4pna", "m4bcp"], tipo: "investigacion" }
+        ]
+      }
+    ]
+  },
+  {
+    anio: "Séptimo", semestres: [
+      {
+        numero: "13º y 14º semestre", materias: [
