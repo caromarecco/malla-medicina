@@ -3,16 +3,16 @@ const materias = [
     anio: "Primero", semestres: [
       {
         numero: "1º semestre", materias: [
-          { id: "bio_intro", nombre: "Introducción a la Biología Celular y Molecular", tipo: "basicas" },
-          { id: "bioest", nombre: "Introducción a la Bioestadística", tipo: "basicas" },
-          { id: "bioetica", nombre: "Salud y Humanidades y Bioética", tipo: "comunidad" },
-          { id: "at1", nombre: "Aprendizaje en Territorio 1", tipo: "comunidad" }
+          { id: "mibcm", nombre: "Introducción a la Biología Celular y Molecular", tipo: "basicas" },
+          { id: "mibes", nombre: "Introducción a la Bioestadística", tipo: "basicas" },
+          { id: "msphb", nombre: "Salud y Humanidades y Bioética", tipo: "comunidad" },
+          { id: "mat1", nombre: "Aprendizaje en Territorio 1", tipo: "comunidad" }
         ]
       },
       {
         numero: "2º semestre", materias: [
-          { id: "bio", nombre: "Biología Celular y Molecular", previas: ["bio_intro"], tipo: "basicas" },
-          { id: "at2", nombre: "Aprendizaje en Territorio 2", previas: ["at1"], tipo: "comunidad" }
+          { id: "mbcm", nombre: "Biología Celular y Molecular", previas: ["mibcm"], tipo: "basicas" },
+          { id: "mat2", nombre: "Aprendizaje en Territorio 2", previas: ["mat1"], tipo: "comunidad" }
         ]
       }
     ]
@@ -21,15 +21,15 @@ const materias = [
     anio: "Segundo", semestres: [
       {
         numero: "3º semestre", materias: [
-          { id: "anatomia", nombre: "Anatomía (CBCC2)", previas: ["bioetica"], tipo: "basicas" },
-          { id: "histobiof", nombre: "Histología y Biofísica (CBCC2)", previas: ["bio"], tipo: "basicas" }
+          { id: "mhbio", nombre: "Histología y Biofísica (CBCC2)", previas: ["mbcm"], tipo: "basicas" },
+          { id: "manat", nombre: "Anatomía (CBCC2)", previas: ["msphb"], tipo: "basicas" }
         ]
       },
       {
         numero: "4º semestre", materias: [
-          { id: "histoneuro", nombre: "Histología (Neuro y Cardio)", previas: ["bio"], tipo: "basicas" },
-          { id: "neuro", nombre: "Neurociencias", previas: ["bio"], tipo: "basicas" },
-          { id: "cardioresp", nombre: "Cardiovascular y Respiratorio", previas: ["bio"], tipo: "basicas" }
+          { id: "hist", nombre: "Histología (Neuro y Cardio)", previas: ["mbcm"], tipo: "basicas" },
+          { id: "bcc3n", nombre: "Neurociencias", previas: ["mbcm"], tipo: "basicas" },
+          { id: "bcc4c", nombre: "Cardiovascular y Respiratorio", previas: ["mbcm"], tipo: "basicas" }
         ]
       }
     ]
@@ -38,13 +38,13 @@ const materias = [
     anio: "Tercero", semestres: [
       {
         numero: "5º semestre", materias: [
-          { id: "cbcc5", nombre: "Digestivo, Renal, Endocrino, Metabólico y Reproductor", previas: ["bio", "anatomia"], tipo: "basicas" }
+          { id: "bcc5", nombre: "Digestivo, Renal, Endocrino y Reproductivo", previas: ["mbcm", "manat"], tipo: "basicas" }
         ]
       },
       {
         numero: "6º semestre", materias: [
-          { id: "b6", nombre: "Hematología e Inmunobiología", previas: ["bio"], tipo: "basicas" },
-          { id: "met1", nombre: "Metodología Científica 1", previas: ["bioest", "cbcc5"], tipo: "investigacion" }
+          { id: "bcc6", nombre: "Hematología e Inmunobiología", previas: ["mbcm"], tipo: "basicas" },
+          { id: "mc1", nombre: "Metodología Científica 1", previas: ["mibes", "bcc5"], tipo: "investigacion" }
         ]
       }
     ]
@@ -53,14 +53,14 @@ const materias = [
     anio: "Cuarto", semestres: [
       {
         numero: "7º semestre", materias: [
-          { id: "m4pna", nombre: "Medicina en el Primer Nivel de Atención", previas: ["cbcc5", "b6"], tipo: "comunidad" },
-          { id: "m4bcp", nombre: "Bases Científicas de la Patología", previas: ["cbcc5", "b6"], tipo: "clinicas" }
+          { id: "m4pna", nombre: "Medicina en el Primer Nivel de Atención", previas: ["bcc5", "bcc6"], tipo: "comunidad" },
+          { id: "m4bcp", nombre: "Bases Científicas de la Patología", previas: ["bcc5", "bcc6"], tipo: "clinicas" }
         ]
       },
       {
         numero: "8º semestre", materias: [
-          { id: "pediatria", nombre: "Pediatría", previas: ["m4pna", "m4bcp"], tipo: "clinicas" },
-          { id: "gineco", nombre: "Ginecología y Neonatología", previas: ["m4pna", "m4bcp"], tipo: "clinicas" }
+          { id: "m4ped", nombre: "Pediatría", previas: ["m4pna", "m4bcp"], tipo: "clinicas" },
+          { id: "m4gyn", nombre: "Ginecología y Neonatología", previas: ["m4pna", "m4bcp"], tipo: "clinicas" }
         ]
       }
     ]
@@ -69,8 +69,8 @@ const materias = [
     anio: "Quinto", semestres: [
       {
         numero: "9º y 10º semestre", materias: [
-          { id: "clinica", nombre: "Clínica Médica", previas: ["pediatria", "gineco"], tipo: "clinicas" },
-          { id: "patomed", nombre: "Patología Médica y Terapéutica", previas: ["m4bcp"], tipo: "clinicas" }
+          { id: "mcm", nombre: "Clínica Médica", previas: ["m4ped", "m4gyn"], tipo: "clinicas" },
+          { id: "mpmt", nombre: "Patología Médica y Terapéutica", previas: ["m4bcp"], tipo: "clinicas" }
         ]
       }
     ]
@@ -79,10 +79,10 @@ const materias = [
     anio: "Sexto", semestres: [
       {
         numero: "11º y 12º semestre", materias: [
-          { id: "clinicaq", nombre: "Clínica Quirúrgica", previas: ["clinica", "m4bcp", "m4pna"], tipo: "clinicas" },
-          { id: "patoquir", nombre: "Patología Quirúrgica", previas: ["m4bcp"], tipo: "clinicas" },
-          { id: "mfc", nombre: "MFC – Salud Mental en Comunidad – Psicología Médica", previas: ["m4pna"], tipo: "clinicas" },
-          { id: "met2", nombre: "Metodología Científica 2", previas: ["met1", "m4pna", "m4bcp"], tipo: "investigacion" }
+          { id: "m6cq", nombre: "Clínica Quirúrgica", previas: ["mcm", "m4bcp", "m4pna"], tipo: "clinicas" },
+          { id: "m6pq", nombre: "Patología Quirúrgica", previas: ["m4bcp"], tipo: "clinicas" },
+          { id: "m6mfc", nombre: "Salud Mental en Comunidad / Psicología Médica", previas: ["m4pna"], tipo: "clinicas" },
+          { id: "mc2", nombre: "Metodología Científica 2", previas: ["mc1", "m4pna", "m4bcp"], tipo: "investigacion" }
         ]
       }
     ]
@@ -91,3 +91,65 @@ const materias = [
     anio: "Séptimo", semestres: [
       {
         numero: "13º y 14º semestre", materias: [
+          { id: "into", nombre: "Internado Obligatorio", previas: ["m6cq", "m6pq", "m6mfc", "mc2"], tipo: "final" }
+        ]
+      }
+    ]
+  }
+];
+
+const estadoMaterias = JSON.parse(localStorage.getItem("estadoMaterias") || "{}");
+
+function crearMalla() {
+  const contenedor = document.getElementById("malla");
+  contenedor.innerHTML = "";
+
+  materias.forEach(anio => {
+    const divAnio = document.createElement("div");
+    divAnio.className = "year";
+
+    const h2 = document.createElement("h2");
+    h2.textContent = anio.anio;
+    divAnio.appendChild(h2);
+
+    anio.semestres.forEach(sem => {
+      const divSem = document.createElement("div");
+      divSem.className = "semestre";
+
+      const h3 = document.createElement("h3");
+      h3.textContent = sem.numero;
+      divSem.appendChild(h3);
+
+      sem.materias.forEach(materia => {
+        const divMat = document.createElement("div");
+        divMat.textContent = materia.nombre;
+        divMat.className = "materia " + (materia.tipo || "");
+        divMat.dataset.id = materia.id;
+
+        if (estadoMaterias[materia.id]) {
+          divMat.classList.add("tachada");
+        }
+
+        if (materia.previas && materia.previas.some(p => !estadoMaterias[p])) {
+          divMat.classList.add("bloqueada");
+        }
+
+        divMat.addEventListener("click", () => {
+          if (divMat.classList.contains("bloqueada")) return;
+          divMat.classList.toggle("tachada");
+          estadoMaterias[materia.id] = divMat.classList.contains("tachada");
+          localStorage.setItem("estadoMaterias", JSON.stringify(estadoMaterias));
+          crearMalla();
+        });
+
+        divSem.appendChild(divMat);
+      });
+
+      divAnio.appendChild(divSem);
+    });
+
+    contenedor.appendChild(divAnio);
+  });
+}
+
+crearMalla();
