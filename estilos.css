@@ -7,41 +7,63 @@ body {
 h1 {
   text-align:center;
   color:#b91c84;
-  margin-bottom:1rem;
+  margin-bottom:2rem;
 }
-#malla {
-  display:grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap:1rem;
+.grid {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 260px;
+}
+.semestre {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: #fff5fb;
+  border: 2px solid #e8c4d8;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.semestre h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #b91c84;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
 }
 .materia {
-  padding:1rem;
+  padding: 0.75rem;
   border-radius:8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   cursor:pointer;
-  text-align:center;
-  transition: transform .2s;
+  background: #f9e0f2;
+  border: 1px solid #e7a6da;
+  transition: all 0.2s;
 }
-.materia:hover { transform: translateY(-3px); }
-
-/* Colores por año */
-[data-ano="1"]{ background:#fde2e4; border:2px solid #f4a8c4; }
-[data-ano="2"]{ background:#f9e0f2; border:2px solid #e7a6da; }
-[data-ano="3"]{ background:#e0e9f9; border:2px solid #aabce9; }
-[data-ano="4"]{ background:#e6f4ea; border:2px solid #b2e2b4; }
-[data-ano="5"]{ background:#fff1e6; border:2px solid #ffd1a1; }
-[data-ano="6"]{ background:#f7e7f9; border:2px solid #d8b4e2; }
-[data-ano="7"]{ background:#e3f9f3; border:2px solid #a6ded4; }
-[data-ano="8"]{ background:#fef6e4; border:2px solid #ffe4a1; }
-[data-ano="9"]{ background:#e1f1ff; border:2px solid #a1cfff; }
-[data-ano="10"]{ background:#f4e8ff; border:2px solid #d1a1ff; }
-
+.materia:hover { transform: translateY(-2px); }
 .materia.bloqueada {
   opacity:0.5;
   cursor:not-allowed;
 }
 .materia.aprobada {
-  background:#d1f7d5;
-  border-color:#34a853;
+  background:#d1f7d5 !important;
+  border-color:#34a853 !important;
   text-decoration: line-through;
+}
+.materia .nombre {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.materia .codigo {
+  font-size: 0.9em;
+  color: #555;
 }
