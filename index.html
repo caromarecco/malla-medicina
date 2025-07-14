@@ -1,31 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Malla Interactiva Medicina</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: white; margin: 0; padding: 0; }
-    h1, h2 { text-align: center; color: #800080; }
-    .leyenda { margin: 1rem 2rem; }
-    .leyenda ul { list-style: none; padding: 0; }
-    .leyenda li { display: flex; align-items: center; margin-bottom: 0.3rem; }
-    .color-box { width: 16px; height: 16px; border-radius: 4px; margin-right: 8px; display: inline-block; border: 1px solid #aaa; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #800080;
+    }
+
+    .leyenda {
+      margin: 1rem 2rem;
+    }
+
+    .leyenda ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .leyenda li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.3rem;
+    }
+
+    .color-box {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      margin-right: 8px;
+      display: inline-block;
+      border: 1px solid #aaa;
+    }
+
     .basicas { background: #fde2e4; }
     .clinicas { background: #e0e9f9; }
     .comunidad { background: #e6f4ea; }
     .investigacion { background: #fff1e6; }
     .final { background: #f4e8ff; }
-    .container { display: flex; overflow-x: auto; padding: 20px; gap: 20px; }
-    .year { min-width: 300px; flex-shrink: 0; }
-    .semestre { background-color: #f9e1f1; border: 2px solid #c89cf5; padding: 15px; margin: 10px 0; border-radius: 15px; }
-    .semestre:nth-child(even) { background-color: #e6d6fa; }
-    .materia { background-color: white; border-radius: 10px; padding: 10px; margin: 5px 0; cursor: pointer; font-weight: bold; color: #800080; }
-    .materia.tachada { text-decoration: line-through; opacity: 0.5; }
-    .materia.bloqueada { background-color: #e0e0e0 !important; color: gray !important; pointer-events: none; }
+
+    .container {
+      display: flex;
+      overflow-x: auto;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .year {
+      min-width: 300px;
+      flex-shrink: 0;
+    }
+
+    .semestre {
+      background-color: #f9e1f1;
+      border: 2px solid #c89cf5;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 15px;
+    }
+
+    .semestre h3 {
+      margin: 0 0 10px;
+      text-align: center;
+    }
+
+    .materia {
+      background-color: white;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 5px 0;
+      cursor: pointer;
+      color: #800080;
+      transition: all 0.2s ease;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .materia.tachada {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+
+    .materia.bloqueada {
+      background-color: #e0e0e0 !important;
+      color: gray !important;
+      pointer-events: none;
+    }
+
+    .materia small {
+      display: block;
+      font-weight: normal;
+      font-size: 0.8em;
+      color: #666;
+    }
   </style>
 </head>
 <body>
+
   <h1>Malla Interactiva Medicina</h1>
 
   <div class="leyenda">
@@ -45,77 +124,99 @@
     const materias = [
       {
         anio: "Primero", semestres: [
-          { numero: "1º semestre", materias: [
-            { id: "mibcm", nombre: "Introducción a la Biología Celular y Molecular", tipo: "basicas" },
-            { id: "mibes", nombre: "Introducción a la Bioestadística", tipo: "basicas" },
-            { id: "msphb", nombre: "Salud y Humanidades y Bioética", tipo: "comunidad" },
-            { id: "mat1", nombre: "Aprendizaje en Territorio 1", tipo: "comunidad" }
-          ]},
-          { numero: "2º semestre", materias: [
-            { id: "mbcm", nombre: "Biología Celular y Molecular", previas: ["mibcm"], tipo: "basicas" },
-            { id: "mat2", nombre: "Aprendizaje en Territorio 2", previas: ["mat1"], tipo: "comunidad" }
-          ]}
+          {
+            numero: "1º semestre", materias: [
+              { id: "mibcm", nombre: "Introducción a la Biología Celular y Molecular", tipo: "basicas" },
+              { id: "mibes", nombre: "Introducción a la Bioestadística", tipo: "basicas" },
+              { id: "msphb", nombre: "Salud y Humanidades y Bioética", tipo: "comunidad" },
+              { id: "mat1", nombre: "Aprendizaje en Territorio 1", tipo: "comunidad" }
+            ]
+          },
+          {
+            numero: "2º semestre", materias: [
+              { id: "mbcm", nombre: "Biología Celular y Molecular", previas: ["mibcm"], tipo: "basicas" },
+              { id: "mat2", nombre: "Aprendizaje en Territorio 2", previas: ["mat1"], tipo: "comunidad" }
+            ]
+          }
         ]
       },
       {
         anio: "Segundo", semestres: [
-          { numero: "3º semestre", materias: [
-            { id: "mhbio", nombre: "Histología y Biofísica (CBCC2)", previas: ["mbcm"], tipo: "basicas" },
-            { id: "manat", nombre: "Anatomía (CBCC2)", previas: ["msphb"], tipo: "basicas" }
-          ]},
-          { numero: "4º semestre", materias: [
-            { id: "hist", nombre: "Histología (Neuro y Cardio)", previas: ["mbcm"], tipo: "basicas" },
-            { id: "bcc3n", nombre: "Neurociencias", previas: ["mbcm"], tipo: "basicas" },
-            { id: "bcc4c", nombre: "Cardiovascular y Respiratorio", previas: ["mbcm"], tipo: "basicas" }
-          ]}
+          {
+            numero: "3º semestre", materias: [
+              { id: "mhbio", nombre: "Histología y Biofísica (CBCC2)", previas: ["mbcm"], tipo: "basicas" },
+              { id: "manat", nombre: "Anatomía (CBCC2)", previas: ["msphb"], tipo: "basicas" }
+            ]
+          },
+          {
+            numero: "4º semestre", materias: [
+              { id: "hist", nombre: "Histología (Neuro y Cardio)", previas: ["mbcm"], tipo: "basicas" },
+              { id: "bcc3n", nombre: "Neurociencias", previas: ["mbcm"], tipo: "basicas" },
+              { id: "bcc4c", nombre: "Cardiovascular y Respiratorio", previas: ["mbcm"], tipo: "basicas" }
+            ]
+          }
         ]
       },
       {
         anio: "Tercero", semestres: [
-          { numero: "5º semestre", materias: [
-            { id: "bcc5", nombre: "Digestivo, Renal, Endocrino y Reproductivo", previas: ["mbcm", "manat"], tipo: "basicas" }
-          ]},
-          { numero: "6º semestre", materias: [
-            { id: "bcc6", nombre: "Hematología e Inmunobiología", previas: ["mbcm"], tipo: "basicas" },
-            { id: "mc1", nombre: "Metodología Científica 1", previas: ["mibes", "bcc5"], tipo: "investigacion" }
-          ]}
+          {
+            numero: "5º semestre", materias: [
+              { id: "bcc5", nombre: "Digestivo, Renal, Endocrino y Reproductivo", previas: ["mbcm", "manat"], tipo: "basicas" }
+            ]
+          },
+          {
+            numero: "6º semestre", materias: [
+              { id: "bcc6", nombre: "Hematología e Inmunobiología", previas: ["mbcm"], tipo: "basicas" },
+              { id: "mc1", nombre: "Metodología Científica 1", previas: ["mibes", "bcc5"], tipo: "investigacion" }
+            ]
+          }
         ]
       },
       {
         anio: "Cuarto", semestres: [
-          { numero: "7º semestre", materias: [
-            { id: "m4pna", nombre: "Medicina en el Primer Nivel de Atención", previas: ["bcc5", "bcc6"], tipo: "comunidad" },
-            { id: "m4bcp", nombre: "Bases Científicas de la Patología", previas: ["bcc5", "bcc6"], tipo: "clinicas" }
-          ]},
-          { numero: "8º semestre", materias: [
-            { id: "m4ped", nombre: "Pediatría", previas: ["m4pna", "m4bcp"], tipo: "clinicas" },
-            { id: "m4gyn", nombre: "Ginecología y Neonatología", previas: ["m4pna", "m4bcp"], tipo: "clinicas" }
-          ]}
+          {
+            numero: "7º semestre", materias: [
+              { id: "m4pna", nombre: "Medicina en el Primer Nivel de Atención", previas: ["bcc5", "bcc6"], tipo: "comunidad" },
+              { id: "m4bcp", nombre: "Bases Científicas de la Patología", previas: ["bcc5", "bcc6"], tipo: "clinicas" }
+            ]
+          },
+          {
+            numero: "8º semestre", materias: [
+              { id: "m4ped", nombre: "Pediatría", previas: ["m4pna", "m4bcp"], tipo: "clinicas" },
+              { id: "m4gyn", nombre: "Ginecología y Neonatología", previas: ["m4pna", "m4bcp"], tipo: "clinicas" }
+            ]
+          }
         ]
       },
       {
         anio: "Quinto", semestres: [
-          { numero: "9º y 10º semestre", materias: [
-            { id: "mcm", nombre: "Clínica Médica", previas: ["m4ped", "m4gyn"], tipo: "clinicas" },
-            { id: "mpmt", nombre: "Patología Médica y Terapéutica", previas: ["m4bcp"], tipo: "clinicas" }
-          ]}
+          {
+            numero: "9º y 10º semestre", materias: [
+              { id: "mcm", nombre: "Clínica Médica", previas: ["m4ped", "m4gyn"], tipo: "clinicas" },
+              { id: "mpmt", nombre: "Patología Médica y Terapéutica", previas: ["m4bcp"], tipo: "clinicas" }
+            ]
+          }
         ]
       },
       {
         anio: "Sexto", semestres: [
-          { numero: "11º y 12º semestre", materias: [
-            { id: "m6cq", nombre: "Clínica Quirúrgica", previas: ["mcm", "m4bcp", "m4pna"], tipo: "clinicas" },
-            { id: "m6pq", nombre: "Patología Quirúrgica", previas: ["m4bcp"], tipo: "clinicas" },
-            { id: "m6mfc", nombre: "Salud Mental en Comunidad / Psicología Médica", previas: ["m4pna"], tipo: "clinicas" },
-            { id: "mc2", nombre: "Metodología Científica 2", previas: ["mc1", "m4pna", "m4bcp"], tipo: "investigacion" }
-          ]}
+          {
+            numero: "11º y 12º semestre", materias: [
+              { id: "m6cq", nombre: "Clínica Quirúrgica", previas: ["mcm", "m4bcp", "m4pna"], tipo: "clinicas" },
+              { id: "m6pq", nombre: "Patología Quirúrgica", previas: ["m4bcp"], tipo: "clinicas" },
+              { id: "m6mfc", nombre: "Salud Mental / Psicología Médica", previas: ["m4pna"], tipo: "clinicas" },
+              { id: "mc2", nombre: "Metodología Científica 2", previas: ["mc1", "m4pna", "m4bcp"], tipo: "investigacion" }
+            ]
+          }
         ]
       },
       {
         anio: "Séptimo", semestres: [
-          { numero: "13º y 14º semestre", materias: [
-            { id: "into", nombre: "Internado Obligatorio", previas: ["m6cq", "m6pq", "m6mfc", "mc2"], tipo: "final" }
-          ]}
+          {
+            numero: "13º y 14º semestre", materias: [
+              { id: "into", nombre: "Internado Obligatorio", previas: ["m6cq", "m6pq", "m6mfc", "mc2"], tipo: "final" }
+            ]
+          }
         ]
       }
     ];
@@ -144,7 +245,7 @@
 
           sem.materias.forEach(materia => {
             const divMat = document.createElement("div");
-            divMat.textContent = materia.nombre;
+            divMat.innerHTML = `<strong>${materia.nombre}</strong><br><small>${materia.id.toUpperCase()}</small>`;
             divMat.className = "materia " + (materia.tipo || "");
             divMat.dataset.id = materia.id;
 
