@@ -1,71 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Medicina</title>
-  <style>
-    body { font-family: sans-serif; background: #f5f5f5; padding: 2rem; }
-    .malla { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
-    .materia {
-      background: white;
-      border-left: 5px solid #4caf50;
-      padding: 1rem;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    .materia[data-nivel="1"] { border-color: #2196f3; }
-    .materia[data-nivel="2"] { border-color: #ff9800; }
-    .materia[data-nivel="3"] { border-color: #e91e63; }
-
-    .previas {
-      font-size: 0.85em;
-      color: #555;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Interactiva Medicina</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <h1>Malla de Medicina - UDELAR</h1>
-  <div class="malla" id="malla"></div>
-
-  <script>
-    const materias = [
-      {
-        codigo: 'MIBCM',
-        nombre: 'Biología Celular y Molecular',
-        semestre: 1,
-        nivel: 1,
-        previas: []
-      },
-      {
-        codigo: 'MIBES',
-        nombre: 'Bioestadística',
-        semestre: 1,
-        nivel: 1,
-        previas: []
-      },
-      {
-        codigo: 'MBCM',
-        nombre: 'Biología Celular Molecular 2',
-        semestre: 2,
-        nivel: 2,
-        previas: ['MIBCM']
-      }
-    ];
-
-    const contenedor = document.getElementById('malla');
-
-    materias.forEach(mat => {
-      const div = document.createElement('div');
-      div.className = 'materia';
-      div.setAttribute('data-nivel', mat.nivel);
-      div.innerHTML = `
-        <strong>${mat.codigo}</strong><br/>
-        ${mat.nombre}<br/>
-        <div class="previas">${mat.previas.length ? 'Previas: ' + mat.previas.join(', ') : 'Sin previas'}</div>
-      `;
-      contenedor.appendChild(div);
-    });
-  </script>
+  <h1>Malla de Medicina</h1>
+  <div id="malla"></div>
+  <script src="script.js"></script>
 </body>
 </html>
