@@ -139,7 +139,7 @@ function crearMalla() {
           divMat.classList.toggle("tachada");
           estadoMaterias[materia.id] = divMat.classList.contains("tachada");
           localStorage.setItem("estadoMaterias", JSON.stringify(estadoMaterias));
-          crearMalla();
+          crearMalla(); // redibuja para actualizar desbloqueos
         });
 
         divSem.appendChild(divMat);
