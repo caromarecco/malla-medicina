@@ -1,6 +1,6 @@
 body {
-  font-family: sans-serif;
-  background-color: #ffe6f0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff6fb;
   color: #333;
   margin: 0;
   padding: 2rem;
@@ -9,38 +9,52 @@ body {
 h1 {
   text-align: center;
   color: #c2185b;
+  margin-bottom: 2rem;
 }
 
 #malla {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.2rem;
   padding: 1rem;
 }
 
 .materia {
-  background-color: #fff0f5;
-  border: 2px solid #c2185b;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #f8e1f4;
+  border-left: 6px solid #c2185b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.2s;
 }
 
 .materia:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .materia.aprobada {
-  background-color: #f8bbd0;
-  border-color: #880e4f;
+  background-color: #e1f8ef;
+  border-color: #43a047;
   text-decoration: line-through;
   opacity: 0.6;
 }
 
 .materia.bloqueada {
-  background-color: #fce4ec;
-  opacity: 0.4;
+  background-color: #f3f3f3;
+  opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Colores por año */
+.materia[data-ano="1"] { background-color: #fde2e4; }
+.materia[data-ano="2"] { background-color: #f9e0f2; }
+.materia[data-ano="3"] { background-color: #e0e9f9; }
+.materia[data-ano="4"] { background-color: #e6f4ea; }
+.materia[data-ano="5"] { background-color: #fff1e6; }
+.materia[data-ano="6"] { background-color: #f7e7f9; }
+.materia[data-ano="7"] { background-color: #e3f9f3; }
+.materia[data-ano="8"] { background-color: #fef6e4; }
+.materia[data-ano="9"] { background-color: #e1f1ff; }
+.materia[data-ano="10"] { background-color: #f4e8ff; }
+
