@@ -13,14 +13,19 @@ h1 {
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  flex-wrap: nowrap;
   overflow-x: auto;
 }
 .columna {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  min-width: 260px;
+  gap: 1rem;
+  min-width: 300px;
+}
+.columna h2 {
+  text-align: center;
+  color: #880e4f;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 .semestre {
   display: flex;
