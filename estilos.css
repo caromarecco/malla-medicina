@@ -1,26 +1,30 @@
 body {
-  background: #fdfcff;
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0; padding: 2rem;
-  color: #333;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  margin: 0;
+  padding: 0;
 }
-h1 {
-  text-align:center;
-  color:#b91c84;
-  margin-bottom:2rem;
+
+h1, h2 {
+  text-align: center;
+  color: #800080;
 }
+
 .leyenda {
-  margin-bottom: 2rem;
+  margin: 1rem 2rem;
 }
+
 .leyenda ul {
   list-style: none;
   padding: 0;
 }
+
 .leyenda li {
   display: flex;
   align-items: center;
   margin-bottom: 0.3rem;
 }
+
 .color-box {
   width: 16px;
   height: 16px;
@@ -29,71 +33,69 @@ h1 {
   display: inline-block;
   border: 1px solid #aaa;
 }
-.basicas { background: #fde2e4; }
-.clinicas { background: #e0e9f9; }
-.comunidad { background: #e6f4ea; }
-.investigacion { background: #fff1e6; }
-.final { background: #f4e8ff; }
 
-.grid {
+.basicas {
+  background: #fde2e4;
+}
+
+.clinicas {
+  background: #e0e9f9;
+}
+
+.comunidad {
+  background: #e6f4ea;
+}
+
+.investigacion {
+  background: #fff1e6;
+}
+
+.final {
+  background: #f4e8ff;
+}
+
+.container {
   display: flex;
-  gap: 2rem;
-  align-items: flex-start;
   overflow-x: auto;
+  padding: 20px;
+  gap: 20px;
 }
-.columna {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+
+.year {
   min-width: 300px;
+  flex-shrink: 0;
 }
-.columna h2 {
-  text-align: center;
-  color: #880e4f;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
+
 .semestre {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-radius: 10px;
-  background: #fff5fb;
-  border: 2px solid #e8c4d8;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background-color: #f9e1f1;
+  border: 2px solid #c89cf5;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 15px;
 }
-.semestre h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
-  color: #b91c84;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.3rem;
+
+.semestre:nth-child(even) {
+  background-color: #e6d6fa;
 }
+
 .materia {
-  padding: 0.75rem;
-  border-radius:8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  cursor:pointer;
-  border: 1px solid #ccc;
-  transition: all 0.2s;
-}
-.materia:hover { transform: translateY(-2px); }
-.materia.bloqueada {
-  opacity:0.5;
-  cursor:not-allowed;
-}
-.materia.aprobada {
-  background:#d1f7d5 !important;
-  border-color:#34a853 !important;
-  text-decoration: line-through;
-}
-.materia .nombre {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
   font-weight: bold;
-  margin-bottom: 4px;
+  color: #800080;
+  transition: background 0.2s;
 }
-.materia .codigo {
-  font-size: 0.9em;
-  color: #555;
+
+.materia.tachada {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.materia.bloqueada {
+  background-color: #e0e0e0 !important;
+  color: gray !important;
+  pointer-events: none;
 }
