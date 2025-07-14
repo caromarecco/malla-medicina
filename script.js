@@ -29,7 +29,6 @@ const materias = [
 const malla = document.getElementById('malla');
 const estructura = {};
 
-// agrupa por año y semestre
 materias.forEach(([codigo, nombre, anio, semestre, previas]) => {
   if (!estructura[anio]) estructura[anio] = {};
   if (!estructura[anio][semestre]) estructura[anio][semestre] = [];
@@ -56,7 +55,6 @@ function actualizar() {
   });
 }
 
-// arma la malla por columna de año y dentro bloques de semestre
 Object.entries(estructura).forEach(([anio, semestres]) => {
   const col = document.createElement('div');
   col.className = 'columna';
