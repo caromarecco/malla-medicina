@@ -27,9 +27,9 @@ const materias = [
 ];
 
 const malla = document.getElementById('malla');
-
 const estructura = {};
 
+// agrupa por año y semestre
 materias.forEach(([codigo, nombre, anio, semestre, previas]) => {
   if (!estructura[anio]) estructura[anio] = {};
   if (!estructura[anio][semestre]) estructura[anio][semestre] = [];
@@ -56,20 +56,23 @@ function actualizar() {
   });
 }
 
+// arma la malla por columna de año y dentro bloques de semestre
 Object.entries(estructura).forEach(([anio, semestres]) => {
   const col = document.createElement('div');
   col.className = 'columna';
+  col.innerHTML = `<h2>Año ${anio}</h2>`;
 
   Object.entries(semestres).forEach(([sem, lista]) => {
     const cont = document.createElement('div');
     cont.className = 'semestre';
     cont.innerHTML = `<h3>Semestre ${sem}</h3>`;
+
     lista.forEach(({ codigo, nombre, previas }) => {
       const div = document.createElement('div');
       div.className = 'materia';
       div.setAttribute('data-codigo', codigo);
       div.setAttribute('data-previas', JSON.stringify(previas));
-      div.innerHTML = `<div class=\"nombre\">${nombre}</div><div class=\"codigo\">${codigo}</div>`;
+      div.innerHTML = `<div class="nombre">${nombre}</div><div class="codigo">${codigo}</div>`;
       if (previas.length > 0) div.classList.add('bloqueada');
       div.addEventListener('click', () => {
         if (div.classList.contains('bloqueada')) return;
@@ -78,6 +81,7 @@ Object.entries(estructura).forEach(([anio, semestres]) => {
       });
       cont.appendChild(div);
     });
+
     col.appendChild(cont);
   });
 
